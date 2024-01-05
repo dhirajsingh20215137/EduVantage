@@ -4,6 +4,7 @@ import { useState } from "react"
 function AddCourse() {
      const [title,setTitle]=useState("")
      const [description,setDescription]=useState("")
+     const [image,setImage] =useState("")
     return (
         <div style={{
             display: "flex",
@@ -18,7 +19,7 @@ function AddCourse() {
             }}>
                 <TextField
                    onChange={(e)=>{
-                       title(e.target.value)
+                       setTitle(e.target.value)
                    }}
 
                     fullWidth={true}
@@ -28,20 +29,27 @@ function AddCourse() {
                 
                 <TextField
                      onChange={(e)=>{
-                        description(e.target.value)
+                        setDescription(e.target.value)
                     }}
 
                     fullWidth={true}
                     label="description"
                     variant="outlined" />
                 <br />
-                <br />
+                <TextField
+                   onChange={(e)=>{
+                       setImage(e.target.value)
+                   }}
+
+                    fullWidth={true}
+                    label="Image-link"
+                    variant="outlined" />
                 <Button
                  onClick={()=>{
                   
                     function callback2(data)
                     {
-                        console.log(data);
+                        alert("course added!!");
                     }
 
                    function callback1(resp)
@@ -49,17 +57,17 @@ function AddCourse() {
                        resp.json().then(callback2);
                    }
 
-                    fetch("http://localhost:3000/admin/courses",{
+                    fetch("http://localhost:3000/admin/courses/",{
                         method: "POST",
                         body: JSON.stringify({
                             title:title,
                             description:description,
-                            imageLink: "",
+                            imageLink:image,
                             published:"true"
                         }),
                         headers: {
                             "Content-type":"application/json",
-                            "Authorization":"Bearer" + localStorage.getItem("token")
+                            "Authorization":"Bearer " + localStorage.getItem("token")
                         }
                     }).then(callback1)
                  }}

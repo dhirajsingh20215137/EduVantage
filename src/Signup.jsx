@@ -69,6 +69,7 @@ function Signup() {
                                     method: "POST",
                                     body: JSON.stringify({
                                         username: email,
+                                        
                                         password: password
                                     }),
                                     headers: {
