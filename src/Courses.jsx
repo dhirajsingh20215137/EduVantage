@@ -11,7 +11,7 @@ function Courses ()
         
         function callback2(data)
         {
-             console.log(data);
+             
              setCourses(data.courses);
         }
 
