@@ -3,7 +3,7 @@ import { useState } from "react"
 
 function AddCourse() {
      const [title,setTitle]=useState("")
-     const [description,setDescription]=useState()
+     const [description,setDescription]=useState("")
     return (
         <div style={{
             display: "flex",
@@ -17,7 +17,9 @@ function AddCourse() {
                 padding:20
             }}>
                 <TextField
-
+                   onChange={(e)=>{
+                       title(e.target.value)
+                   }}
 
                     fullWidth={true}
                     label="title"
@@ -25,21 +27,45 @@ function AddCourse() {
                 <br />
                 
                 <TextField
-
+                     onChange={(e)=>{
+                        description(e.target.value)
+                    }}
 
                     fullWidth={true}
                     label="description"
                     variant="outlined" />
                 <br />
-                <TextField
-
-
-                    fullWidth={true}
-                    label="Image-Link"
-                    variant="outlined" />
                 <br />
-                <br />
-                <Button> Add course</Button>
+                <Button
+                 onClick={()=>{
+                  
+                    function callback2(data)
+                    {
+                        console.log(data);
+                    }
+
+                   function callback1(resp)
+                   {
+                       resp.json().then(callback2);
+                   }
+
+                    fetch("http://localhost:3000/admin/courses",{
+                        method: "POST",
+                        body: JSON.stringify({
+                            title:title,
+                            description:description,
+                            imageLink: "",
+                            published:"true"
+                        }),
+                        headers: {
+                            "Content-type":"application/json",
+                            "Authorization":"Bearer" + localStorage.getItem("token")
+                        }
+                    }).then(callback1)
+                 }}
+                 
+                 
+                 > Add course</Button>
             </Card>
 
         </div>
