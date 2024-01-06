@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
-import { Card, Typography,Button,TextField } from "@mui/material";
+import { Card, Typography, Button, TextField, Grid } from "@mui/material";
 
 function Course() {
 
@@ -46,17 +46,26 @@ function Course() {
 
     return (
         <div>
-            <CourseCard course={course} />
-            <UpdateCard course={course} setCourses={setCourses} courses={courses}/>
+            <Grid container>
+                <Grid item lg={8} md={12} sm={12}>
+                    <UpdateCard course={course} setCourses={setCourses} courses={courses} />
+                </Grid>
+                <Grid item lg={4} md={12} sm={12}>
+                    <CourseCard course={course} />
+                </Grid>
+
+
+            </Grid>
         </div>
 
     )
 
     function UpdateCard(props) {
-        const [title,setTitle]=useState("")
-        const [description,setDescription]=useState("")
-        const [image,setImage] =useState("")
-        const course=props.course;
+        const course = props.course;
+        const [title, setTitle] = useState(course.title)
+        const [description, setDescription] = useState(course.description)
+        const [image, setImage] = useState(course.imageLink)
+
         return <div style={{
             display: "flex",
             justifyContent: "center"
@@ -71,7 +80,7 @@ function Course() {
                     onChange={(e) => {
                         setTitle(e.target.value)
                     }}
-
+                    value={title}
                     fullWidth={true}
                     label="title"
                     variant="outlined" />
@@ -81,7 +90,7 @@ function Course() {
                     onChange={(e) => {
                         setDescription(e.target.value)
                     }}
-
+                    value={description}
                     fullWidth={true}
                     label="description"
                     variant="outlined" />
@@ -90,32 +99,30 @@ function Course() {
                     onChange={(e) => {
                         setImage(e.target.value)
                     }}
-
+                    value={image}
                     fullWidth={true}
                     label="Image-link"
                     variant="outlined" />
-                <Button
+                <Button variant="contained" size="large"
                     onClick={() => {
 
                         function callback2(data) {
-                           
-                           
-                           let updatedCourses=[];
-                            for(let i=0;i<props.courses.length;i++)
-                            {   
-                                
-                                if(course._id==props.courses[i]._id)
-                                {   
-                                    
-                                    updatedCourses.push( {
-                                        _id:course._id,
-                                        title:title,
-                                        description:description,
-                                        imageLink:image
+
+
+                            let updatedCourses = [];
+                            for (let i = 0; i < props.courses.length; i++) {
+
+                                if (course._id == props.courses[i]._id) {
+
+                                    updatedCourses.push({
+                                        _id: course._id,
+                                        title: title,
+                                        description: description,
+                                        imageLink: image
                                     })
                                 }
                                 else
-                                   updatedCourses.push(props.courses[i])
+                                    updatedCourses.push(props.courses[i])
                             }
 
                             props.setCourses(updatedCourses)
@@ -152,18 +159,18 @@ function Course() {
         const course = props.course;
 
         return <div style={{
-            display:"flex",
-            justifyContent:"center"
+            display: "flex",
+            justifyContent: "center"
         }}>
-        <Card style={{
-            margin: 10,
-            width: 300,
-            minHeight: 200
-        }}>
-            <Typography textAlign={"center"} variant="h6">{course.title}</Typography>
-            <Typography textAlign={"center"} variant="subtitle1">{course.description}</Typography>
-            <img src={course.imageLink} style={{ width: 200 }}></img>
-        </Card>
+            <Card style={{
+                margin: 10,
+                width: 300,
+                minHeight: 200
+            }}>
+                <Typography textAlign={"center"} variant="h6">{course.title}</Typography>
+                <Typography textAlign={"center"} variant="subtitle1">{course.description}</Typography>
+                <img src={course.imageLink} style={{ width: 200 }}></img>
+            </Card>
         </div>
     }
 }

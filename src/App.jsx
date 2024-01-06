@@ -8,7 +8,11 @@ import Courses from "./Courses"
 import Course from "./Course"
 function App() {
   return (
-    <>
+    <div style={{
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#eeeeee"
+    }}>
 
       <Router>
         <Appbar></Appbar>
@@ -22,7 +26,7 @@ function App() {
         </Routes>
       </Router>
 
-    </>
+    </div>
   )
 }
 
