@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material"
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 
 function Appbar() {
@@ -7,18 +7,15 @@ function Appbar() {
     const [userEmail, setUserEmail] = useState(null);
 
     useEffect(() => {
-         
-       
-        function callback2(data)
-        {
-            if(data.username)
-               {
-                  setUserEmail(data.username)
-               }
+
+
+        function callback2(data) {
+            if (data.username) {
+                setUserEmail(data.username)
+            }
             console.log(data);
         }
-        function callback1(resp)
-        {
+        function callback1(resp) {
             resp.json().then(callback2);
         }
         fetch("http://localhost:3000/admin/me", {
@@ -38,16 +35,29 @@ function Appbar() {
                 padding: 4
             }}>
                 <div><Typography>Coursera</Typography></div>
-                <div style={{display:"flex"}}>
-                    <div>
-                        {userEmail}
+                <div style={{ display: "flex" }}>
+                    <div >
+                        <Button
+                            variant="content"
+                            onClick={() => {
+                                 navigate('/courses')
+                            }}>Courses
+                        </Button>
                     </div>
-                    <div style={{marginRight: 10}}>
+                    <div >
                         <Button 
                             variant="content"
                             onClick={() => {
-                                localStorage.setItem("token",null)
-                                window.location="/";
+                                 navigate('/addcourse')
+                            }}>Add Courses
+                        </Button>
+                    </div>
+                    <div style={{ marginRight: 10 }}>
+                        <Button
+                            variant="content"
+                            onClick={() => {
+                                localStorage.setItem("token", null)
+                                window.location = "/";
                             }}>Logout
                         </Button>
                     </div>

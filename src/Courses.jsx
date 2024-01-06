@@ -1,5 +1,6 @@
-import { Card, Typography } from "@mui/material";
+import { Card, Typography,Button } from "@mui/material";
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 
 function Courses ()
@@ -31,12 +32,15 @@ function Courses ()
 
     },[])
 
+    if(!courses.length)
+        return <>loading...</>
+
 
     return (
         <div style={{
             display:"flex",
+            flexWrap:"wrap",
             justifyContent:"center",
-            marginTop:50
         }}>
             {/* <h1>Courses</h1> */}
           {courses.map(course => {
@@ -49,7 +53,8 @@ function Courses ()
 }
 
    function Course(props)
-{
+{   
+    const navigate= useNavigate();
       return (
        <Card  style={{
              margin:10,
@@ -59,6 +64,14 @@ function Courses ()
            <Typography textAlign={"center"} variant="h6">{props.course.title}</Typography>
            <Typography textAlign={"center"} variant="subtitle1">{props.course.description}</Typography>
            <img src={props.course.imageLink} style={{width:200}}></img>
+           <div  style={{display:"flex",justifyContent:"center",marginTop:20}}>
+              <Button variant="contained" size="large"
+                 onClick={()=>{
+                    navigate("/course/"+props.course._id);
+                 }}
+                 >Edit</Button>
+
+           </div>
        </Card>
       )
 }

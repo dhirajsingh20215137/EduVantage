@@ -47,7 +47,7 @@ function Course() {
     return (
         <div>
             <CourseCard course={course} />
-            <UpdateCard course={course}/>
+            <UpdateCard course={course} setCourses={setCourses} courses={courses}/>
         </div>
 
     )
@@ -98,7 +98,28 @@ function Course() {
                     onClick={() => {
 
                         function callback2(data) {
-                            alert("course updated!!");
+                           
+                           
+                           let updatedCourses=[];
+                            for(let i=0;i<props.courses.length;i++)
+                            {   
+                                
+                                if(course._id==props.courses[i]._id)
+                                {   
+                                    
+                                    updatedCourses.push( {
+                                        _id:course._id,
+                                        title:title,
+                                        description:description,
+                                        imageLink:image
+                                    })
+                                }
+                                else
+                                   updatedCourses.push(props.courses[i])
+                            }
+
+                            props.setCourses(updatedCourses)
+
                         }
 
                         function callback1(resp) {
@@ -130,7 +151,11 @@ function Course() {
     function CourseCard(props) {
         const course = props.course;
 
-        return <Card style={{
+        return <div style={{
+            display:"flex",
+            justifyContent:"center"
+        }}>
+        <Card style={{
             margin: 10,
             width: 300,
             minHeight: 200
@@ -139,6 +164,7 @@ function Course() {
             <Typography textAlign={"center"} variant="subtitle1">{course.description}</Typography>
             <img src={course.imageLink} style={{ width: 200 }}></img>
         </Card>
+        </div>
     }
 }
 
