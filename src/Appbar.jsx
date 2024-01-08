@@ -80,7 +80,7 @@ function Appbar() {
                 <Button variant="content"
                     onClick={() => {
                         navigate('/login')
-                    }}>Sign in</Button>
+                    }}>sign in</Button>
             </div>
         </div>
     )
